@@ -1,10 +1,22 @@
 <template>
-  <div class="froth">
-    <div v-for=" in 5" class="foam"></div>
-  </div>
+<div v-if="type !== 'No Creamer'" class="froth">
+  <div v-for="i in 5" :key="i" class="foam" :style="{ backgroundColor: foamColor }"></div>
+</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const props = defineProps<{ type: string }>()
+
+// gives foam bubble color
+const foamColor = computed(() => {
+  if (props.type === 'Milk') return '#faf8f2'
+  if (props.type === 'Cream') return '#f7edd9'
+  if (props.type === 'Half & Half') return '#f3e9cf'
+})
+</script>
+
 <style lang="scss" scoped>
 .froth {
   overflow: visible;
@@ -15,6 +27,7 @@
   background-color: #c6c6c6;
   animation: pour-tea 2s 2s forwards;
 }
+
 .foam {
   display: block;
   background: #e4e0d2;
